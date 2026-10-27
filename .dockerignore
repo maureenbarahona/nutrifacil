@@ -1,0 +1,26 @@
+# Control de versiones
+.git
+.gitignore
+.github
+
+# Entornos y editores
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+
+# Dependencias o cachés locales
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+
+# Documentación y metadatos que no deben ir a la imagen de producción
+*.md
+LICENSE
+.env
+.env.*
+Dockerfile
+.dockerignore

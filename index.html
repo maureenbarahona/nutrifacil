@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NutriFácil Salud Rural - Tu guía clara, accesible y sencilla de salud, nutrición, antropometría y actividad física para toda la familia con apoyo de narración por voz.">
+  <meta name="theme-color" content="#15803D">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="NutriFácil - Mi Salud al Día">
+  <meta property="og:description" content="Calculadora de IMC accesible, guía ilustrada de antropometría y rutina de ejercicios sencillos con narración por voz.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+
+  <title>Calculadora de Peso (IMC) | NutriFácil</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <link rel="manifest" href="/manifest.webmanifest">
+
+  <!-- Google Fonts: Plus Jakarta Sans (Body) & Outfit (Headings) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link visually-hidden">Saltar al contenido principal</a>
+
+  <!-- ENCABEZADO ACCESIBLE -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-icon" aria-hidden="true">🌱</div>
+        <div class="brand-text">
+          <h1>NutriFácil</h1>
+          <p>Tu salud, tu cuerpo y tu bienestar explicados fácil</p>
+        </div>
+      </div>
+
+      <!-- HERRAMIENTAS DE ACCESIBILIDAD (VOZ + TAMAÑO DE TEXTO) -->
+      <div class="header-tools">
+        <button
+          type="button"
+          id="btnGlobalVoice"
+          class="btn-tool btn-audio-global"
+          aria-pressed="false"
+        >
+          <span class="voice-icon" aria-hidden="true">🔊</span>
+          <span class="voice-label">Escuchar en Voz Alta</span>
+          <span class="sound-waves" id="globalSoundWaves" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          id="toggleTextSize"
+          class="btn-tool"
+          aria-pressed="false"
+        >
+          <span class="btn-tool-icon-large" aria-hidden="true">A+</span>
+          <span class="text-size-label">Letra Más Grande</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PESTAÑAS DE NAVEGACIÓN PRINCIPAL (3 MÓDULOS CLAROS) -->
+  <nav class="main-tabs-nav" aria-label="Módulos principales de salud">
+    <div class="tabs-container" role="tablist" aria-label="Secciones de NutriFácil">
+      <button
+        type="button"
+        class="tab-button active"
+        id="tab-calc"
+        role="tab"
+        aria-selected="true"
+        aria-controls="pane-calc"
+        tabindex="0"
+      >
+        <span class="tab-badge" aria-hidden="true">1</span>
+        <span><span aria-hidden="true">⚖️</span> Calculadora de Peso (IMC)</span>
+      </button>
+
+      <button
+        type="button"
+        class="tab-button"
+        id="tab-book"
+        role="tab"
+        aria-selected="false"
+        aria-controls="pane-book"
+        tabindex="-1"
+      >
+        <span class="tab-badge" aria-hidden="true">2</span>
+        <span><span aria-hidden="true">📖</span> ¿Qué es Medir el Cuerpo?</span>
+      </button>
+
+      <button
+        type="button"
+        class="tab-button"
+        id="tab-exercise"
+        role="tab"
+        aria-selected="false"
+        aria-controls="pane-exercise"
+        tabindex="-1"
+      >
+        <span class="tab-badge" aria-hidden="true">3</span>
+        <span><span aria-hidden="true">🚶</span> Ejercicios Sencillos</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ÁREA DE CONTENIDO PRINCIPAL -->
+  <main class="content-area" id="main-content" tabindex="-1">
+
+    <!-- ======================================================== -->
+    <!-- MÓDULO 1: CALCULADORA DE IMC (FÁCIL Y VISUAL)            -->
+    <!-- ======================================================== -->
+    <section
+      id="pane-calc"
+      class="module-pane active-pane"
+      role="tabpanel"
+      aria-labelledby="tab-calc"
+    >
+      <div class="card">
+        <div class="card-header-intro">
+          <h2><span aria-hidden="true">⚖️</span> Revisa tu Peso y Estatura</h2>
+          <p>Usa los botones grandes de <strong>+</strong> y <strong>−</strong> para poner tu peso y estatura. Al instante sabrás cómo está tu salud según las recomendaciones de los doctores.</p>
+        </div>
+
+        <div class="calc-layout">
+          <!-- FORMULARIO DE ENTRADA -->
+          <div class="calc-inputs-wrapper">
+
+            <!-- PESO -->
+            <div class="input-field-block">
+              <div class="field-label-group">
+                <label for="pesoInput" class="field-label">
+                  <span aria-hidden="true">⚖️</span> ¿Cuánto pesas?
+                </label>
+                <span class="field-tip" id="pesoHint">En kilos (kg)</span>
+              </div>
+
+              <div class="stepper-control">
+                <button
+                  type="button"
+                  class="stepper-btn"
+                  id="btnPesoMinus"
+                  aria-label="Restar 1 kilo al peso"
+                >−</button>
+                <div class="stepper-input-box">
+                  <input
+                    type="number"
+                    id="pesoInput"
+                    class="stepper-input"
+                    value="68"
+                    min="30"
+                    max="250"
+                    step="1"
+                    inputmode="numeric"
+                    aria-describedby="pesoHint"
+                  >
+                  <span class="stepper-unit" aria-hidden="true">kg</span>
+                </div>
+                <button
+                  type="button"
+                  class="stepper-btn"
+                  id="btnPesoPlus"
+                  aria-label="Sumar 1 kilo al peso"
+                >+</button>
+              </div>
+
+              <div class="slider-container">
+                <label for="pesoRange" class="visually-hidden">Deslizador para ajustar el peso en kilos</label>
+                <input
+                  type="range"
+                  id="pesoRange"
+                  class="custom-range"
+                  min="35"
+                  max="150"
+                  value="68"
+                >
+                <div class="range-markers" aria-hidden="true">
+                  <span>35 kg</span>
+                  <span>70 kg</span>
+                  <span>110 kg</span>
+                  <span>150 kg</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ESTATURA -->
+            <div class="input-field-block">
+              <div class="field-label-group">
+                <label for="tallaInput" class="field-label">
+                  <span aria-hidden="true">📏</span> ¿Cuánto mides?
+                </label>
+                <span class="field-tip" id="tallaHint">En centímetros (cm)</span>
+              </div>
+
+              <div class="stepper-control">
+                <button
+                  type="button"
+                  class="stepper-btn"
+                  id="btnTallaMinus"
+                  aria-label="Restar 1 centímetro a la estatura"
+                >−</button>
+                <div class="stepper-input-box">
+                  <input
+                    type="number"
+                    id="tallaInput"
+                    class="stepper-input"
+                    value="162"
+                    min="100"
+                    max="220"
+                    step="1"
+                    inputmode="numeric"
+                    aria-describedby="tallaHint"
+                  >
+                  <span class="stepper-unit" aria-hidden="true">cm</span>
+                </div>
+                <button
+                  type="button"
+                  class="stepper-btn"
+                  id="btnTallaPlus"
+                  aria-label="Sumar 1 centímetro a la estatura"
+                >+</button>
+              </div>
+
+              <div class="slider-container">
+                <label for="tallaRange" class="visually-hidden">Deslizador para ajustar la estatura en centímetros</label>
+                <input
+                  type="range"
+                  id="tallaRange"
+                  class="custom-range"
+                  min="120"
+                  max="200"
+                  value="162"
+                >
+                <div class="range-markers" aria-hidden="true">
+                  <span>120 cm (Bajo)</span>
+                  <span>160 cm (Medio)</span>
+                  <span>200 cm (Alto)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- BOTONES DE ACCIÓN -->
+            <div class="calc-actions">
+              <button type="button" class="btn-calculate" id="btnRecalcular">
+                <span aria-hidden="true">🔍</span>
+                <span>Calcular Mi Estado</span>
+              </button>
+              <button type="button" class="btn-reset" id="btnResetearValores">
+                Valores Base
+              </button>
+            </div>
+
+          </div>
+
+          <!-- PANEL VISUAL DE RESULTADOS -->
+          <div class="calc-result-panel" id="imcResultSection" aria-live="polite">
+            <div class="panel-header-action">
+              <button
+                type="button"
+                class="btn-narrate-card"
+                id="btnVoiceCalc"
+                aria-pressed="false"
+              >
+                <span>🔊 Escuchar resultado y consejos</span>
+              </button>
+            </div>
+
+            <div class="gauge-wrapper">
+              <div class="gauge-title">Tu Número de Salud (IMC)</div>
+              <div class="imc-score-big" id="resultImcNumber">25.9</div>
+
+              <!-- SEMÁFORO VISUAL OMS -->
+              <div class="traffic-bar-container" aria-hidden="true">
+                <div class="traffic-bar">
+                  <div class="traffic-segment seg-bajo"></div>
+                  <div class="traffic-segment seg-normal"></div>
+                  <div class="traffic-segment seg-sobre"></div>
+                  <div class="traffic-segment seg-obe"></div>
+                </div>
+                <div class="traffic-pointer-wrap">
+                  <div class="traffic-pointer" id="trafficPointer" style="left: 54.5%;"></div>
+                </div>
+                <div class="traffic-labels">
+                  <span class="traffic-label-bajo">Bajo</span>
+                  <span class="traffic-label-normal">Normal</span>
+                  <span class="traffic-label-sobre">Sobrepeso</span>
+                  <span class="traffic-label-obe">Obesidad</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- TARJETA DEL ESTADO ACTUAL -->
+            <div class="result-status-card status-sobre" id="statusCard">
+              <div class="status-emoji" id="statusEmoji" aria-hidden="true">⚠️</div>
+              <div class="status-texts">
+                <h3 id="statusTitle">Sobrepeso Leve</h3>
+                <p id="statusDesc">Tienes un poco de peso de más. Con pequeños cambios cotidianos cuidarás tu corazón.</p>
+              </div>
+            </div>
+
+            <!-- CONSEJOS PRÁCTICOS PARA EL DÍA A DÍA -->
+            <div class="advice-box">
+              <h4><span aria-hidden="true">💡</span> Consejos sencillos para tu hogar:</h4>
+              <ul class="advice-list" id="adviceList" role="list"></ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- MÓDULO 2: LIBRO EDUCATIVO "ANTROPOMETRÍA"                -->
+    <!-- ======================================================== -->
+    <section
+      id="pane-book"
+      class="module-pane"
+      role="tabpanel"
+      aria-labelledby="tab-book"
+      hidden
+    >
+      <div class="book-container">
+        <div class="book-progress">
+          <div class="book-steps" role="group" aria-label="Páginas del libro">
+            <button type="button" class="book-dot active" id="dot-1" aria-label="Ir a la página 1" aria-current="step"></button>
+            <button type="button" class="book-dot" id="dot-2" aria-label="Ir a la página 2" aria-current="false"></button>
+            <button type="button" class="book-dot" id="dot-3" aria-label="Ir a la página 3" aria-current="false"></button>
+          </div>
+          <div class="book-page-counter" id="pageCounterText" aria-live="polite">Página 1 de 3</div>
+        </div>
+
+        <div class="book-page-card" id="bookPageCard">
+          <div class="page-ribbon" aria-hidden="true"></div>
+
+          <div class="book-header-action">
+            <button
+              type="button"
+              class="btn-narrate-card"
+              id="btnVoiceBook"
+              aria-pressed="false"
+            >
+              <span>🔊 Escuchar esta página</span>
+            </button>
+          </div>
+
+          <div class="page-content-grid">
+            <div class="page-illustration-box" id="pageIllustration" aria-hidden="true">
+              📏
+            </div>
+
+            <div class="page-narrative">
+              <h2 id="pageTitle">¿Qué es Medir el Cuerpo?</h2>
+              <p class="lead-simple" id="pageLead">
+                La palabra de doctores es <strong>"Antropometría"</strong>, pero en nuestro hogar solo significa: <strong>aprender a medir nuestro cuerpo</strong>.
+              </p>
+              <ul class="page-points-list" id="pagePoints" role="list"></ul>
+            </div>
+          </div>
+
+          <!-- BOTONES DE NAVEGACIÓN DEL LIBRO -->
+          <div class="book-nav-controls">
+            <button type="button" class="btn-book-nav btn-book-prev" id="btnBookPrev" disabled>
+              <span aria-hidden="true">⬅️</span>
+              <span>Página Anterior</span>
+            </button>
+            <button type="button" class="btn-book-nav btn-book-next" id="btnBookNext">
+              <span>Siguiente Página</span>
+              <span aria-hidden="true">➡️</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- MÓDULO 3: EJERCICIOS SENCILLOS PARA SEDENTARIOS          -->
+    <!-- ======================================================== -->
+    <section
+      id="pane-exercise"
+      class="module-pane"
+      role="tabpanel"
+      aria-labelledby="tab-exercise"
+      hidden
+    >
+      <div class="card">
+        <div class="card-header-intro">
+          <h2><span aria-hidden="true">🚶‍♂️</span> Mueve Tu Cuerpo Sin Salir de Casa</h2>
+          <p>Pensado especialmente si pasas muchas horas sentado, trabajando en un mismo lugar o sientes tu cuerpo cansado y pesado. Marca los que hagas hoy.</p>
+        </div>
+
+        <!-- BARRA DE PROGRESO DE LA RUTINA -->
+        <div class="routine-banner">
+          <div class="routine-banner-text">
+            <h3>Tu Reto Saludable de Hoy</h3>
+            <p>Realiza estos 4 movimientos suaves para darle vida a tu circulación y fuerza a tus piernas.</p>
+          </div>
+          <div class="progress-pill" id="exerciseProgressPill" aria-live="polite">
+            <span aria-hidden="true">⭐</span>
+            <span id="completedCounterText">0 de 4 listos</span>
+          </div>
+        </div>
+
+        <!-- LISTA DE LOS 4 EJERCICIOS -->
+        <div class="exercises-grid">
+
+          <!-- EJERCICIO 1 -->
+          <article class="exercise-card" id="card-ex-1">
+            <div>
+              <div class="exercise-badge-top">
+                <span class="exercise-number">Paso 1</span>
+                <span class="exercise-duration"><span aria-hidden="true">⏱️</span> 5 a 10 min</span>
+              </div>
+              <div class="exercise-main-info">
+                <div class="exercise-icon-wrap" aria-hidden="true">🚶</div>
+                <div class="exercise-texts">
+                  <h4>Caminata suave en tu lugar</h4>
+                  <p>Marcha suave levantando los pies del suelo como si fueras por un sendero tranquilo.</p>
+                </div>
+              </div>
+              <div class="exercise-instructions">
+                <strong>¿Para qué ayuda?</strong>
+                Despierta el corazón y oxigena tus pulmones sin lastimar tus rodillas.
+              </div>
+            </div>
+            <div class="exercise-actions-bottom">
+              <button
+                type="button"
+                class="btn-voice-exercise"
+                data-exercise="1"
+                aria-pressed="false"
+                aria-label="Escuchar instrucciones del Paso 1: Caminata suave en tu lugar"
+              >
+                <span>🔊 Escuchar instrucciones</span>
+              </button>
+              <div class="exercise-controls-row">
+                <button
+                  type="button"
+                  class="btn-toggle-exercise"
+                  data-target="card-ex-1"
+                  aria-pressed="false"
+                  aria-label="Marcar como hecho el Paso 1: Caminata suave en tu lugar"
+                >
+                  <span>⬜ Marcar como Hecho</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn-timer-trigger"
+                  data-time="300"
+                  aria-label="Abrir reloj de 5 minutos para Caminata suave"
+                >⏱️</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- EJERCICIO 2 -->
+          <article class="exercise-card" id="card-ex-2">
+            <div>
+              <div class="exercise-badge-top">
+                <span class="exercise-number">Paso 2</span>
+                <span class="exercise-duration"><span aria-hidden="true">⏱️</span> 2 a 3 min</span>
+              </div>
+              <div class="exercise-main-info">
+                <div class="exercise-icon-wrap" aria-hidden="true">🙆</div>
+                <div class="exercise-texts">
+                  <h4>Estirar brazos y espalda</h4>
+                  <p>Entrelaza tus dedos, llévalos hacia arriba al cielo y respira hondo y despacio.</p>
+                </div>
+              </div>
+              <div class="exercise-instructions">
+                <strong>¿Para qué ayuda?</strong>
+                Alivia el dolor del cuello y la espalda tras cargar peso o estar sentado.
+              </div>
+            </div>
+            <div class="exercise-actions-bottom">
+              <button
+                type="button"
+                class="btn-voice-exercise"
+                data-exercise="2"
+                aria-pressed="false"
+                aria-label="Escuchar instrucciones del Paso 2: Estirar brazos y espalda"
+              >
+                <span>🔊 Escuchar instrucciones</span>
+              </button>
+              <div class="exercise-controls-row">
+                <button
+                  type="button"
+                  class="btn-toggle-exercise"
+                  data-target="card-ex-2"
+                  aria-pressed="false"
+                  aria-label="Marcar como hecho el Paso 2: Estirar brazos y espalda"
+                >
+                  <span>⬜ Marcar como Hecho</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn-timer-trigger"
+                  data-time="120"
+                  aria-label="Abrir reloj de 2 minutos para Estirar brazos y espalda"
+                >⏱️</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- EJERCICIO 3 -->
+          <article class="exercise-card" id="card-ex-3">
+            <div>
+              <div class="exercise-badge-top">
+                <span class="exercise-number">Paso 3</span>
+                <span class="exercise-duration"><span aria-hidden="true">⏱️</span> 10 repeticiones</span>
+              </div>
+              <div class="exercise-main-info">
+                <div class="exercise-icon-wrap" aria-hidden="true">🪑</div>
+                <div class="exercise-texts">
+                  <h4>Sentarse y pararse de una silla</h4>
+                  <p>Siéntate en una silla firme y ponte de pie despacio sin usar las manos si puedes.</p>
+                </div>
+              </div>
+              <div class="exercise-instructions">
+                <strong>¿Para qué ayuda?</strong>
+                Fortalece las piernas y rodillas para que puedas caminar y agacharte sin dolor.
+              </div>
+            </div>
+            <div class="exercise-actions-bottom">
+              <button
+                type="button"
+                class="btn-voice-exercise"
+                data-exercise="3"
+                aria-pressed="false"
+                aria-label="Escuchar instrucciones del Paso 3: Sentarse y pararse de una silla"
+              >
+                <span>🔊 Escuchar instrucciones</span>
+              </button>
+              <div class="exercise-controls-row">
+                <button
+                  type="button"
+                  class="btn-toggle-exercise"
+                  data-target="card-ex-3"
+                  aria-pressed="false"
+                  aria-label="Marcar como hecho el Paso 3: Sentarse y pararse de una silla"
+                >
+                  <span>⬜ Marcar como Hecho</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn-timer-trigger"
+                  data-time="60"
+                  aria-label="Abrir reloj de 1 minuto para Sentarse y pararse de una silla"
+                >⏱️</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- EJERCICIO 4 -->
+          <article class="exercise-card" id="card-ex-4">
+            <div>
+              <div class="exercise-badge-top">
+                <span class="exercise-number">Paso 4</span>
+                <span class="exercise-duration"><span aria-hidden="true">⏱️</span> 2 a 3 min</span>
+              </div>
+              <div class="exercise-main-info">
+                <div class="exercise-icon-wrap" aria-hidden="true">🦶</div>
+                <div class="exercise-texts">
+                  <h4>Círculos con tobillos y pies</h4>
+                  <p>Sentado en la silla, levanta un pie y haz círculos suaves en el aire hacia los dos lados.</p>
+                </div>
+              </div>
+              <div class="exercise-instructions">
+                <strong>¿Para qué ayuda?</strong>
+                Evita que se hinchen las piernas y hace que la sangre circule libremente.
+              </div>
+            </div>
+            <div class="exercise-actions-bottom">
+              <button
+                type="button"
+                class="btn-voice-exercise"
+                data-exercise="4"
+                aria-pressed="false"
+                aria-label="Escuchar instrucciones del Paso 4: Círculos con tobillos y pies"
+              >
+                <span>🔊 Escuchar instrucciones</span>
+              </button>
+              <div class="exercise-controls-row">
+                <button
+                  type="button"
+                  class="btn-toggle-exercise"
+                  data-target="card-ex-4"
+                  aria-pressed="false"
+                  aria-label="Marcar como hecho el Paso 4: Círculos con tobillos y pies"
+                >
+                  <span>⬜ Marcar como Hecho</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn-timer-trigger"
+                  data-time="120"
+                  aria-label="Abrir reloj de 2 minutos para Círculos con tobillos y pies"
+                >⏱️</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE TEMPORIZADOR NATIVO (<dialog closedby="any">) -->
+  <dialog
+    id="timerOverlay"
+    class="timer-dialog"
+    closedby="any"
+    aria-labelledby="timerTitle"
+  >
+    <h3 id="timerTitle">Reloj de Ejercicio</h3>
+    <p class="timer-subtitle">Respira tranquilo mientras te mueves</p>
+    <div class="timer-display-huge" id="timerDisplay" aria-live="off">05:00</div>
+    <div class="timer-controls-btns">
+      <button type="button" class="btn-timer-main btn-timer-start" id="btnTimerStart">▶️ Comenzar</button>
+      <button type="button" class="btn-timer-main btn-timer-close" id="btnTimerClose">Cerrar</button>
+    </div>
+  </dialog>
+
+  <!-- PIE DE PÁGINA EMPÁTICO Y EDUCATIVO -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-note">
+        <span class="footer-note-icon" aria-hidden="true">🩺</span>
+        <div class="footer-note-text">
+          <p>Recuerda: Esta guía te orienta y motiva con amor.</p>
+          <small>Siempre es buena idea visitar al médico o enfermera de tu centro de salud más cercano.</small>
+        </div>
+      </div>
+      <div class="footer-emergency">
+        <span aria-hidden="true">💚</span> "Cuidar tu cuerpo hoy es cosechar salud mañana"
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT ES6+ MODULAR -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "NutriFácil Salud Rural",
+  "short_name": "NutriFácil",
+  "description": "Guía accesible de salud, nutrición, antropometría y actividad física con narración por voz.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F8F5",
+  "theme_color": "#15803D",
+  "lang": "es-MX"
+}

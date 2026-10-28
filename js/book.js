@@ -56,7 +56,7 @@ const bookPages = [
     points: [
       {
         icon: '🥕',
-        text: 'Aprovechar lo que da la tierra: quelites, nopales, frijoles y calabazas ricas.'
+        text: 'Aprovechar lo que da la tierra: Frijoles, cebollas, patastes y ricos ayotes.'
       },
       {
         icon: '💧',

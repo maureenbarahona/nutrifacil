@@ -109,7 +109,7 @@ export function initCalculator() {
       consejos = [
         {
           icon: '🥬',
-          text: 'Sigue comiendo verduras frescas, quelites y frutas de temporada.'
+          text: 'Sigue comiendo verduras frescas, hojas verdes y frutas de temporada.'
         },
         {
           icon: '💧',
